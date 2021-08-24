@@ -12,7 +12,7 @@ class Gameboard {
         [new Tile(), new Tile(), new Tile()]
     ];
 
-    playerMark = 'X';
+    playerMark = 'X'; // X starts the game
 
     constructor() {}
 
@@ -25,25 +25,22 @@ class Gameboard {
     }
 
     checkForWin(playerMark, row, col) {
-        if (this.tilesArray[row][0].playerMark === playerMark && this.tilesArray[row][1].playerMark === playerMark && this.tilesArray[row][2].playerMark === playerMark) {
-            return true;
-        } else if (this.tilesArray[0][col].playerMark === playerMark && this.tilesArray[1][col].playerMark === playerMark && this.tilesArray[2][col].playerMark === playerMark) {
-            return true;
-        } else if (this.tilesArray[0][0].playerMark === playerMark && this.tilesArray[1][1].playerMark === playerMark && this.tilesArray[2][2].playerMark === playerMark) {
-            return true;
-        } else if (this.tilesArray[2][0].playerMark === playerMark && this.tilesArray[1][1].playerMark === playerMark && this.tilesArray[0][2].playerMark === playerMark) {
-            return true;
-        }
+
+        let horizontal = this.tilesArray[row].every( tileCol => tileCol.playerMark === playerMark );
+        let vertical = this.tilesArray.every( tileRow => tileRow[col].playerMark === playerMark );
+        let diagonalDown = Array.from( [this.tilesArray[0][0], this.tilesArray[1][1], this.tilesArray[2][2]] );
+        let diagonalUp = Array.from( [this.tilesArray[2][0], this.tilesArray[1][1], this.tilesArray[0][2]] )
+        diagonalDown = diagonalDown.every( tile => tile.playerMark === playerMark);
+        diagonalUp = diagonalUp.every( tile => tile.playerMark === playerMark);
+
+        let winConditions = [horizontal, vertical, diagonalDown, diagonalUp];
+        return winConditions.some( condition => condition === true );
+
     }
 
     checkForTie() {
-        if (
-            this.tilesArray[0][0].playerMark !== '—' && this.tilesArray[0][1].playerMark !== '—' && this.tilesArray[0][2].playerMark !== '—' &&
-            this.tilesArray[1][0].playerMark !== '—' && this.tilesArray[1][1].playerMark !== '—' && this.tilesArray[1][2].playerMark !== '—' && 
-            this.tilesArray[2][0].playerMark !== '—' && this.tilesArray[2][1].playerMark !== '—' && this.tilesArray[2][2].playerMark !== '—'
-        ) {
-            return true;
-        }
+        let allTiles = this.tilesArray.flat();
+        return allTiles.every( tile => tile.playerMark !== '—' );
     }
 
     changePlayer() {
@@ -57,9 +54,8 @@ class Gameboard {
 }
 
 ////////////////////////////////////////////////////////////
+// THE GAME
 ////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-// FUNCTIONAL MECHANICS
 
 function gameCycle() {
 
@@ -88,15 +84,10 @@ function gameCycle() {
 }
 
 ////////////////////////////////////////////////////////////
+// CREATE AND START THE GAME
 ////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////
-// THE GAME
 
 // Create new board
 let thisGame = new Gameboard;
 thisGame.createGameboard();
-
-// X starts the game
-// let playerMark = 'X';
-
 gameCycle();
