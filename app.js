@@ -1,5 +1,5 @@
 class Tile {
-    constructor(playerMark='—') {
+    constructor(playerMark = '—') {
         this.playerMark = playerMark;
     }
 }
@@ -44,11 +44,7 @@ class Gameboard {
     }
 
     changePlayer() {
-        if (this.playerMark === 'X') {
-            this.playerMark = 'O';
-        } else if (this.playerMark === 'O') {
-            this.playerMark = 'X';
-        };
+        this.playerMark === 'X' ? this.playerMark = 'O' : this.playerMark = 'X';
     }
     
 }
@@ -64,7 +60,7 @@ function gameCycle() {
     let col = parseInt( prompt(`${thisGame.playerMark} Choose your column`) );
     thisGame.addPlayerMark(thisGame.playerMark, row, col);
 
-    // Check for win condition
+    // Check for endgame condition
         // First checks for winning arrangement
         // Then checks for a tie
     // If either are true, announces winner or tie and ends the game
@@ -89,5 +85,4 @@ function gameCycle() {
 
 // Create new board
 let thisGame = new Gameboard;
-thisGame.createGameboard();
 gameCycle();
