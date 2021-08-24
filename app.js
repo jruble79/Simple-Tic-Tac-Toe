@@ -10,7 +10,6 @@ let tilesArray = [
     [new Tile(), new Tile(), new Tile()]
 ];
 
-
 class Gameboard {
     constructor(){}
     get gameboard() {
@@ -21,7 +20,8 @@ class Gameboard {
     }
     addPlayerMark(playerMark, row, col) {
         return tilesArray[row][col].playerMark = playerMark;
-    }    
+    }
+    
 }
 
 ////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ function gameCycle() {
     // Player marks tile
     let row = parseInt( prompt(`${playerMark} Choose your row`) );
     let col = parseInt( prompt(`${playerMark} Choose your column`) );
-    markTile(row, col);
+    thisGame.addPlayerMark(playerMark, row, col);
 
     // Check for win condition
         // First checks for winning arrangement
@@ -53,11 +53,6 @@ function gameCycle() {
         changePlayer();
         gameCycle();
     }
-}
-
-function markTile(row, col) {
-    thisGame.addPlayerMark(playerMark, row, col);
-    thisGame.gameboard;
 }
 
 function checkForWin(row, col) {
