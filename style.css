@@ -1,0 +1,17 @@
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+#container {
+    height: 100vh;
+}
+#board {
+    cursor: pointer;
+    border-spacing: 1em;
+}
+td {
+    background-color: aliceblue;
+    text-align: center;
+}
