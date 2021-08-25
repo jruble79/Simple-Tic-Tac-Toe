@@ -23,7 +23,7 @@ class Gameboard {
     addPlayerMark(playerMark, row, col) {
         if ( this.tilesArray[row][col].playerMark !== '—' ) {
             alert('This tile has already been claimed');
-            gameCycle();
+            endgameCheck();
         } else {
             this.tilesArray[row][col].playerMark = playerMark;
         }
@@ -39,13 +39,13 @@ class Gameboard {
         diagonalUp = diagonalUp.every( tile => tile.playerMark === playerMark);
 
         let winConditions = [horizontal, vertical, diagonalDown, diagonalUp];
-        return winConditions.some( condition => condition === true );
+        return winConditions.some( condition => condition === true ); // Returns Boolean
 
     }
 
     checkForTie() {
         let allTiles = this.tilesArray.flat();
-        return allTiles.every( tile => tile.playerMark !== '—' );
+        return allTiles.every( tile => tile.playerMark !== '—' ); // Returns Boolean
     }
 
     changePlayer() {
@@ -54,17 +54,22 @@ class Gameboard {
     
 }
 
+
 ////////////////////////////////////////////////////////////
 // THE GAME CYCLE
 ////////////////////////////////////////////////////////////
 
-function gameCycle() {
-
+function markTile() {
     // Player marks tile
     let row = parseInt( prompt(`${thisGame.playerMark} Choose your row`) );
     let col = parseInt( prompt(`${thisGame.playerMark} Choose your column`) );
     thisGame.addPlayerMark(thisGame.playerMark, row, col);
 
+    // Advance to endgame check
+    endgameCheck(row, col);
+}
+
+function endgameCheck(row, col) {
     // Check for endgame condition
         // First checks for winning arrangement
         // Then checks for a tie
@@ -80,7 +85,7 @@ function gameCycle() {
     } else {
         // Else change player and continue game cycle
         thisGame.changePlayer();
-        gameCycle();
+        markTile();
     }
 }
 
@@ -90,4 +95,4 @@ function gameCycle() {
 
 // Create new board
 let thisGame = new Gameboard;
-gameCycle();
+markTile();
