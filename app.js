@@ -21,7 +21,12 @@ class Gameboard {
     }
 
     addPlayerMark(playerMark, row, col) {
-        this.tilesArray[row][col].playerMark = playerMark;
+        if ( this.tilesArray[row][col].playerMark !== '—' ) {
+            alert('This tile has already been claimed');
+            gameCycle();
+        } else {
+            this.tilesArray[row][col].playerMark = playerMark;
+        }
     }
 
     checkForWin(playerMark, row, col) {
@@ -50,7 +55,7 @@ class Gameboard {
 }
 
 ////////////////////////////////////////////////////////////
-// THE GAME
+// THE GAME CYCLE
 ////////////////////////////////////////////////////////////
 
 function gameCycle() {
