@@ -3,10 +3,8 @@
 // THE GAME CYCLE
 ////////////////////////////////////////////////////////////
 
-function markTile(thisGame) {
+function markTile(thisGame, row, col) {
     // Player marks tile
-    let row = parseInt( prompt(`${thisGame.playerMark} Choose your row`) );
-    let col = parseInt( prompt(`${thisGame.playerMark} Choose your column`) );
     thisGame.addPlayerMark(thisGame.playerMark, row, col);
 
     // Advance to endgame check
@@ -20,7 +18,7 @@ function endgameCheck(row, col, thisGame) {
     // If either are true, announces winner or tie and ends the game
     // If both are false, continues the game
 
-    if ( thisGame.checkForWin(thisGame.playerMark, row, col) === true) {
+    if ( thisGame.checkForWin( thisGame.playerMark, row, col) === true ) {
         console.log(`${thisGame.playerMark} wins!`);
         return; // Ends the game
     } else if ( thisGame.checkForTie(thisGame.playerMark) === true ) {
@@ -29,7 +27,6 @@ function endgameCheck(row, col, thisGame) {
     } else {
         // Else change player and continue game cycle
         thisGame.changePlayer();
-        markTile(thisGame);
     }
 }
 
