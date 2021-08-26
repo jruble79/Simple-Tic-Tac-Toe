@@ -1,14 +1,13 @@
 
 ////////////////////////////////////////////////////////////
-// THE GAME CYCLE
+// THE GAME FUNCTIONS
 ////////////////////////////////////////////////////////////
 
 function markTile(thisGame, row, col) {
     // Player marks tile
-    thisGame.addPlayerMark(thisGame.playerMark, row, col);
-
-    // Advance to endgame check
-    endgameCheck(row, col, thisGame);
+    if ( thisGame.addPlayerMark(thisGame.playerMark, row, col) === false ) {
+        return false;
+    };
 }
 
 function endgameCheck(row, col, thisGame) {
@@ -20,10 +19,10 @@ function endgameCheck(row, col, thisGame) {
 
     if ( thisGame.checkForWin( thisGame.playerMark, row, col) === true ) {
         console.log(`${thisGame.playerMark} wins!`);
-        return; // Ends the game
+        return true; // Ends the game
     } else if ( thisGame.checkForTie(thisGame.playerMark) === true ) {
         console.log('Tie! No winner!');
-        return; // Ends the game
+        return true; // Ends the game
     } else {
         // Else change player and continue game cycle
         thisGame.changePlayer();

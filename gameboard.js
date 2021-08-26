@@ -27,8 +27,8 @@ class Gameboard {
 
     addPlayerMark(playerMark, row, col) {
         if ( this.tilesArray[row][col].playerMark !== '—' ) {
-            alert('This tile has already been claimed');
-            endgameCheck();
+            alert('This tile has already been claimed. Choose another.');
+            return false;
         } else {
             this.tilesArray[row][col].playerMark = playerMark;
         }
