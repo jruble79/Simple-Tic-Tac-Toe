@@ -57,3 +57,4 @@ class Gameboard {
     }
 }
 
+export { Tile, Gameboard };

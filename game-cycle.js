@@ -10,7 +10,7 @@ function markTile(thisGame) {
     thisGame.addPlayerMark(thisGame.playerMark, row, col);
 
     // Advance to endgame check
-    endgameCheck(row, col);
+    endgameCheck(row, col, thisGame);
 }
 
 function endgameCheck(row, col, thisGame) {
@@ -29,6 +29,8 @@ function endgameCheck(row, col, thisGame) {
     } else {
         // Else change player and continue game cycle
         thisGame.changePlayer();
-        markTile();
+        markTile(thisGame);
     }
 }
+
+export { markTile, endgameCheck };
