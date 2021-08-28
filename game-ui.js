@@ -8,6 +8,7 @@ import { endgameCheck, markTile } from './game-cycle.js';
 
 // Create new board
 let thisGame = new Gameboard;
+setTimeout(revealGrid, 25);
 
 function runGame(e) {
     let row = parseInt(e.target.dataset.row);
@@ -17,10 +18,20 @@ function runGame(e) {
         return; // Tile already marked. Choose another tile.
     } else {
         addFlapTile(e, row, col);
+        setTimeout( changePlayerCue, 500 );
         if ( endgameCheck(row, col, thisGame) === true ) {
             document.querySelector('#board').removeEventListener('click', runGame);
+            setTimeout( announceEndgame, 500 );
         }
     }
+}
+
+function revealGrid() {
+    const horizontals = Array.from(document.getElementsByClassName('hl'));
+    const verticals = Array.from(document.getElementsByClassName('vl'));
+
+    horizontals.forEach(line => line.classList.add('hopen'));
+    verticals.forEach(line => line.classList.add('vopen'));
 }
 
 function addFlapTile(e, row, col) {
@@ -55,6 +66,13 @@ function flapThatTile(row, col) {
     frontTiles.forEach(frontTile => frontTile.classList.add('fflap'));
 }
 
+function changePlayerCue() {
+    document.querySelector('h1').innerText = `Turn: ${thisGame.playerMark}`;
+}
+
+function announceEndgame() {
+    document.querySelector('h1').innerText = `${thisGame.playerMark} WINS!`;
+}
 
 // Apply playerMark to DOM and run game cycle
 document.querySelector('#board').addEventListener('click', runGame);
